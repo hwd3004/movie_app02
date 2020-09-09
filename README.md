@@ -825,6 +825,46 @@ class App extends React.Component {
 movie를 render하고 map을 만들고, movie를 render하는 것이다.
 
 -----------------------------------------
+
+#4.0 Fetching Movies from API
+
+일반적으로 자바스크립트에서 data를 fetch하는 방법은 fetch를 사용하는 것이다.
+fetch 대신에 axios가 있다.
+터미널에서 npm install axios
+
+yts에서 만든 api를 사용할 것이다.
+yts는 불법 토렌트 영화 사이트이다.
+yts 화면 맨하단에 api로 가서 list movies로 가면
+end point의 https://yts.mx/api/v2/list_movies.json 주소로 가면 된다.
+크롬 브라우저로 json view 확장기능을 쓰는게 좋다.
+참고로 yts는 불법 사이트이기때문에 url 주소가 언제나 바뀔 수 있음에 주의.
+
+axios 임포트하고
+
+app 컴포넌트에
+
+componentDidMount(){
+    axios.get("https://yts.mx/api/v2/list_movies.json")
+  }
+
+추가하고
+
+브라우저에서 콘솔창에서 네트워크로 가서 list_movies.json이 보이고, 마우스 호버했을때
+주소가 yts이면 정상적으로 잘되었다.
+
+
+
+axios.get은 항상 빠르지않으므로, 자바스크립트에게 componentDidMount 함수가 끝날 때까지
+시간이 걸릴수 있다가 알려주어야한다.
+
+getMovies = async () => {
+    const movies = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  }
+
+  componentDidMount(){
+    this.getMovies()
+  }
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
