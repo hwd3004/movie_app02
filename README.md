@@ -788,6 +788,42 @@ ReactDOM.render(
 React.StrictMode 를 지웠다.
 
 -----------------------------------------
+
+#3.3 Planning the Movie Component
+
+movie component 구성
+
+
+
+class App extends React.Component {
+  
+  state = {
+    isLoading: true
+  }
+
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({ isLoading: false })
+    }, 6000)
+  }
+
+  render(){
+    const { isLoading } = this.state
+    return (
+      <div>
+        { isLoading ? "Loading..." : "We are ready" }
+      </div>
+    )
+  }
+
+}
+
+
+
+이론적으로 우리가 할 일은 componentDidMount에서 data를 fetch하는 것이다.
+그리고 api로부터 data fetching이 완료되면, 그러면 "we are ready" 대신에
+movie를 render하고 map을 만들고, movie를 render하는 것이다.
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
