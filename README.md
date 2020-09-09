@@ -683,6 +683,110 @@ render function을 호출할 것이다.
 this.state.count = 1 이라고 하면, 아무 일도 일어나지 않는다.
 
 -----------------------------------------
+
+#3.2 Component Life Cycle
+
+리액트 컴포넌트에서 사용하는 유일한 펑션은 렌더 펑션이다.
+리액트 클래스 컴포넌트는 렌더말고 많은 걸 가지고 있다.
+life cycle moethod라는 것을 가지고 있는데, 리액트가 컴포넌트를 생성하고, 없애는 방법이다.
+컴포넌트가 생성될때, 렌더 전에 호출되는 몇가지 펑션이 있다.
+컴포넌트가 렌더된 후, 호출되는 다른 펑션들이 존재한다.
+Add를 클릭하고 +1이 될 때, 컴포넌트가 업데이트될 때, 호출되는 다른 펑션이 있다.
+전부를 다 알 필요는 없고, 가장 중요한 몇가지만 알면 된다.
+
+하나는 Mounting 이다.
+마운팅은 '태어나는 것'과 같다.
+
+다른 하나는 Updating 이다.
+일반적인 업데이트를 의미한다.
+
+Unmounting은 컴포넌트가 죽는걸 의미한다.
+컴포넌트가 어떻게 죽을까? 페이지를 바꿀때, state를 사용해서 컴포넌트를 교차할대 등등 다양하다.
+
+
+
+마운팅은 먼저 호출되는 함수가 하나 있는데 constructor() 이다.
+컨스트럭터는 리액트 함수가 아니라, 자바스크립트에서 클래스를 만들때 호출되는 함수이다.
+
+class App extends React.Component {
+
+  constructor(props){
+    super (props)
+    console.log('hello')
+  }
+
+  state = {
+    count: 0
+  }
+
+  add = () => {
+    this.setState( current => ({ count: current.count + 1 }) )
+  }
+
+  minus = () => {
+    this.setState( current => ({ count: current.count - 1 }) )
+  }
+
+  render(){
+    console.log('render')
+    return (
+    <div>
+      <h1>The Number is {this.state.count}</h1>
+      <button onClick={this.add}>Add</button>
+      <button onClick={this.minus}>Minus</button>
+    </div>
+    )
+  }
+}
+
+브라우저의 콘솔창을 확인해보면, 컨스트럭터는 시작 전에 호출됐고 "hello"가 표시된다.
+그런 다음에 render()가 "render"를 표시한다.
+이건 리액트가 아니라 자바스크립트이다.
+컴포넌트가 마운트 될 때, 컴포넌트가 스크린에 표시될 때, 컴포넌트가 웹사이트에 갈 때
+컨스트럭터를 호출한다.
+그리고 나서 render()를 호출한다.
+
+컴포넌트가 렌더할때 componentDidMount()를 호출한다.
+기본적으로 이 것은 '이 컴포넌트는 처음 렌더됐다'라고 알려준다.
+
+componentDidMount(){
+    console.log('component rendered')
+  }
+
+
+
+Update는 add 혹은 minus같은 것을 클릭해서 state를 변경할때, 그게 업데이트이다.
+컴포넌트가 업데이트될 때 호출되는 많은 함수들이 있는데, render()와
+componentDidUpdate()이다.
+
+componentDidUpdate(){
+    console.log('updated')
+  }
+
+setState를 호출하면, 컴포넌트를 호출하고, 렌더를 호출한 다음, 업데이트가 완료되면
+componentDidUpdate가 실행된다.
+
+
+
+언마운트는 컴포넌트가 떠날 때 호출된다.
+
+componentWillUnmount(){
+    console.log('Goodbye')
+  }
+
+언마운트는 어떤걸 하거나, 다른 페이지로 갈때 작동한다.
+
+
+
+
+index.js에서
+
+ReactDOM.render(
+    <App />,
+  document.getElementById('root')
+
+React.StrictMode 를 지웠다.
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
