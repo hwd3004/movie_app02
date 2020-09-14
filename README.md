@@ -866,6 +866,99 @@ getMovies = async () => {
   }
 
 -----------------------------------------
+
+#4.1 Rendering the Movies
+
+getMovies = async () => {
+  const movies = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  console.log(movies)
+}
+
+API에서 data를 가져왔으니, 콘솔창으로 확인.
+object에서 data에 또 data가 있음. 거기에 movies가 있음.
+
+
+
+
+getMovies = async () => {
+  const movies = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  console.log(movies.data.data.movies)
+}
+
+이렇게 해도 되지만
+
+
+getMovies = async () => {
+  const { data: { data: { movies } } } = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  console.log(movies)
+}
+
+이렇게 할 수 있음.
+
+movies를 state 안에 넣어야함.
+
+
+getMovies = async () => {
+  const { data: { data: { movies } } } = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  this.setState({ movies:movies })
+}
+
+
+this.setState({ movies:movies }) 는
+this.setState({ movies }) 으로 가능
+하나는 state = {} 안에 있는 movies 이고, 다른 하나는 axios에 온 movies임.
+
+
+
+
+getMovies = async () => {
+  const { data: { data: { movies } } } = await axios.get("https://yts.mx/api/v2/list_movies.json")
+  this.setState({ movies:movies, isLoading: false })
+}
+
+axios에서 movies를 get하는것을 await로 기다리다가 다 되면, setState하면서 isLoading을 false로 변경
+
+
+
+
+We are ready 를 이제 다른 걸로 바꿀 차례.
+movies를 render해야함.
+src 폴더에 Movies.js 파일 추가.
+movies 컴포넌트는 state를 필요로 하지 않을 거이며, 클래스 컴포넌트가 될 필요가 없음.
+
+
+
+
+
+API로부터 응답받는 것에 대해 propTypes
+
+// poster - medium cover image
+Movies.propTypes = {
+    id: propTypes.number.isRequired,
+    title: propTypes.string.isRequired,
+    summary: propTypes.string.isRequired,
+    poster: propTypes.string.isRequired
+}
+
+
+
+영화 평점(rating)순으로 보여주게 하려면
+https://yts.mx/api 에서 Endpoint parameters에서 sory_by에 rating
+
+https://yts.mx/api/v2/list_movies.json?sort_by=rating
+
+
+
+
+
+function Movies( {id, year, title, summary, poster} ){
+    return (
+        <div></div>
+    )
+}
+
+Movies 컴포넌트 수정
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
