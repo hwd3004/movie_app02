@@ -986,6 +986,50 @@ css는 css 파일 하나 만들고 App.js에서
 import './App.css' 추가하는 식으로 할 수 있음.
 
 -----------------------------------------
+
+#4.3 Adding Genres
+
+props에 array 포함시키기.
+
+Movies.propTypes = {
+    id: propTypes.number.isRequired,
+    year: propTypes.number.isRequired,
+    title: propTypes.string.isRequired,
+    summary: propTypes.string.isRequired,
+    poster: propTypes.string.isRequired,
+
+    genres: propTypes.arrayOf(propTypes.string).isRequired
+
+}
+
+
+
+
+
+Movie.js의 Movies 컴포넌트의
+
+<ul className='genres'>
+    { genres && genres.map(genre => (<li className='genres__genre'>{genre}</li>)) }
+</ul>
+
+genres가 있다면, genres.map() 실행
+그냥 genres.map() 만 하면,
+axios로 불러오는 data에 genres가 없는 경우 에러가 발생.
+
+
+
+
+index.js:1 Warning: Each child in a list should have a unique "key" prop.
+
+key를 제공하지 않았다는 에러가 뜸.
+map에 있는 각각의 item에는 key가 필요.
+하지만 이 경우에는 id가 없기때문에 제공할 key가 없음.
+map function은 또다른 argument가 있는데, 하나는 현재의 item이고, 다른 하나는 item number(index).
+
+<ul className='genres'>
+    { genres && genres.map((genre, index) => (<li key={index} className='genres__genre'>{genre}</li>)) }
+</ul>
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
