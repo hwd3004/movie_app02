@@ -1168,6 +1168,44 @@ http://localhost:3000/#/about 으로 가면 이제 about만 뜬다.
 
 
 -----------------------------------------
+
+#6.2 Building the Navigation
+
+components 폴더에 Nagigation.js을 새로 만들고,
+
+import React from 'react'
+
+function Navigation(){
+    return (
+        <div>
+            <a href='/'>Home</a>
+            <a href='/about'>About</a>
+        </div>
+    )
+}
+
+export default Navigation
+
+
+home에서 home으로 가는 하이퍼링크를 클릭하면 새로고침된다.
+
+
+
+import { Link } from 'react-router-dom'
+
+function Navigation(){
+    return (
+        <div>
+            <Link to='/'>Home</Link>
+            <Link to='/about'>About</Link>
+        </div>
+    )
+}
+
+a href를 Link to로 바꾸면 해결된다.
+
+Link는 라우터 안에 있어야한다. 
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
