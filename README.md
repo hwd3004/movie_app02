@@ -1248,9 +1248,73 @@ function Navigation(){
 
 Detail.js를 만들고, Movie.js를 수정.
 
-
-
 -----------------------------------------
+
+#6.4 Redirecting
+
+Movie 컴포넌트의 Link를 통해 정보를 라우터로 보내고 있음.
+
+
+
+function Detail({location}){
+    console.log(location)
+    return (
+        <h1>Detail</h1>
+    )
+}
+
+
+메인페이지에서 영화 클릭으로 링크 이동 후, 콘솔창을 보면 year, title, summary, poster, genres 가 잘뜨지만,
+그 자리에서 새로고침하거나, 주소창에 직접 movie-detail로 입력해서 이동하면 사라진다.
+
+
+
+
+
+
+class Detail extends React.Component{
+    componentDidMount(){
+        const { location } = this.props
+        console.log(location.state)
+    }
+    render(){
+        return (
+            <h1>Detail</h1>
+        )
+    }
+}
+
+클래스 컴포넌트로 바꾸고, componentDidMount로 하면, undefined가 뜬다.
+
+
+
+class Detail extends React.Component{
+    componentDidMount(){
+        console.log(this.props)
+
+history에 있는 go, goBack, goFoward는 url을 변경한다.
+
+
+
+
+class Detail extends React.Component{
+    componentDidMount(){
+        const { location, history } = this.props
+        if(location.state === undefined){
+            history.push('/')
+        }
+    }
+    render(){
+        return (
+            <h1>Detail</h1>
+        )
+    }
+}
+
+이제 movie-detail에서 새로 고침하거나, 다이렉트로 접근하면 홈페이지로 리다이렉트된다.
+
+
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
