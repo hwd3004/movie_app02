@@ -1051,6 +1051,122 @@ CSS 작업
 npm install react-router-dom
 
 -----------------------------------------
+
+#6.1 Building the Router
+
+App.js의 App 컴포넌트에 라우터를 만들어야함.
+그냥 home을 return하는 대신에, router를 return.
+
+import { HashRouter } from 'react-router-dom' 추가.
+
+Route 안에는 매우 중요한 props가 한개 들어감.
+그 prop은 렌더링할 스크린이 들어가고, 다른 prop은 뭘 할지 정해줌.
+
+import About from './routes/About' 추가.
+
+
+
+
+
+
+import React from 'react';
+import { HashRouter, Route } from 'react-router-dom'
+import Home from './routes/Home'
+import About from './routes/About'
+
+function App(){
+  return <HashRouter>
+    <Route path='/' component={Home} />
+    <Route path='/about' component={About} />
+  </HashRouter>
+}
+
+export default App
+
+
+
+http://localhost:3000/#/ 메인페이지로 가면, home이 정상적으로 나타나지만,
+http://localhost:3000/#/about 으로 가면, home과 about이 함께 나타난다.
+2개의 컴포넌트가 동시에 렌더링된다. 이게 리액트 라우터가 작동하는 방식이다.
+
+
+
+
+function App(){
+  return (
+    <HashRouter>
+      <Route path='/'>
+        <h1>home</h1>
+      </Route>
+      <Route path='/about'>
+        <h1>about</h1>
+      </Route>
+    </HashRouter>
+  )
+}
+
+
+http://localhost:3000/#/about 페이지로 가면,
+home과 about 둘 다 보인다.
+
+
+
+
+
+function App(){
+  return (
+    <HashRouter>
+      <Route path='/home'>
+        <h1>home</h1>
+      </Route>
+      <Route path='/about'>
+        <h1>about</h1>
+      </Route>
+    </HashRouter>
+  )
+}
+
+'/'가 아닌, '/home' 에서 http://localhost:3000/#/about를 보면 about만 뜬다.
+
+
+
+
+
+function App(){
+  return (
+    <HashRouter>
+      <Route path='/home'>
+        <h1>home</h1>
+      </Route>
+      <Route path='/home/intro'>
+        <h1>intro</h1>
+      </Route>
+      <Route path='/about'>
+        <h1>about</h1>
+      </Route>
+    </HashRouter>
+  )
+}
+
+
+
+http://localhost:3000/#/home/intro 페이지로 가면, 리액트 라우터가 2개의 컴포넌트를 렌더링한다.
+
+
+
+
+function App(){
+  return (
+    <HashRouter>
+      <Route path='/' exact={true} component={Home} />
+      <Route path='/about' component={About} />
+    </HashRouter>
+  )
+}
+
+http://localhost:3000/#/about 으로 가면 이제 about만 뜬다.
+
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
