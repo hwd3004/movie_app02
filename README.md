@@ -1207,6 +1207,49 @@ a href를 Link to로 바꾸면 해결된다.
 Link는 라우터 안에 있어야한다. 
 
 -----------------------------------------
+
+#6.3 Sharing Props Between Routes
+
+route props
+모든 컴포넌트에는 props가 있다.
+Movie.js 에서는
+year, title, summary, poster, genres 를 보내고 있다.
+
+
+function About(props){
+    console.log(props)
+
+http://localhost:3000/#/about 페이지로 가서 콘솔창을 확인해보면,
+history, location, match, staticContext
+4개의 props가 있다. 
+
+그냥 about으로 가는 대신에, 클릭하면서 정보를 보낼 수 있다.
+props를 about 화면으로.
+메인페이지에서 movie를 클릭하면 movie 디테일 페이지로 갈건데, 모든 데이터를 보낼 것이다.
+
+
+
+
+function Navigation(){
+    return (
+        <div className='nav'>
+            <Link to='/'>Home</Link>
+            <Link to={{
+                pathname: '/about',
+                state : {
+                    fromNavigation: true
+                }
+            }}>About</Link>
+        </div>
+    )
+}
+
+콘솔창에서 location의 pathname과 state 확인.
+
+Detail.js를 만들고, Movie.js를 수정.
+
+
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
