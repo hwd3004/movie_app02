@@ -960,6 +960,31 @@ function Movies( {id, year, title, summary, poster} ){
 Movies 컴포넌트 수정
 
 -----------------------------------------
+
+#4.2 Styling the Movies
+
+HTML 작업
+
+function Movies( {id, year, title, summary, poster} ){
+    return (
+        <div className='movies__movie'>
+            <img src={poster} alt={title} title={title}></img>
+            <div className='movie__data'>
+                <h3 className='movie__title'>{title}</h3>
+                <h5 className='movie__year'>{year}</h5>
+                <p className='movie__summary'>{summary}</p>
+            </div>
+        </div>
+    )
+}
+
+여기서 img 태그에 title은, 이미지 마우스 호버하면 타이틀이 표시된다.
+
+
+
+css는 css 파일 하나 만들고 App.js에서 
+import './App.css' 추가하는 식으로 할 수 있음.
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
